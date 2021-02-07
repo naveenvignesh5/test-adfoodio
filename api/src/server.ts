@@ -1,20 +1,27 @@
-import express from "express";
+import express, { Express, Request, Response } from 'express';
+
+// routes
+import menu from './routes/menu';
 
 const port = process.env.NODE_PORT || 4848;
 
-export function run () {
-  const app = express();
+export function run() {
+  const app: Express = express();
 
-  app.get("/", function(_, res) {
-    res.type('text/plain').send("Food can be served");
+  app.use(express.static('public'));
+
+  app.use('/menu', menu);
+
+  app.get('/', function (req: Request, res: Response) {
+    res.type('text/plain').send('Food can be served');
   });
 
   return app.listen(port, function () {
     // Port is forwarded by docker to 80.
     console.log(`Listening on http://localhost:${port}`);
-  })
+  });
 }
 
-if(process.env.NODE_ENV !== 'testing') {
+if (process.env.NODE_ENV !== 'testing') {
   run();
 }
