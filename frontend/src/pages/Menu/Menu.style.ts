@@ -7,10 +7,6 @@ export interface StyleProps {
 
 export type PropsClasses = Record<keyof StyleProps, string>;
 
-const baseStyle: StyleProps = {
-  root: {},
-};
-
 export default makeStyles<Theme, StyleProps>((theme: Theme) =>
   createStyles({
     root: {
